@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — Lumina Fine Jewellery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #F5F0E8;
+      --gold: #C9A84C;
+      --gold-light: #E2C97E;
+      --dark: #1A1710;
+      --mid: #3D3A30;
+      --muted: #8A8370;
+      --border: #DDD5C4;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--dark); font-family: var(--font-sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 300; letter-spacing: 0.18em; color: var(--dark); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 0.5rem 1.25rem; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: #fff; }
+
+    /* PAGE HEADER */
+    .page-header {
+      padding: 10rem 6rem 4rem;
+      background: var(--warm-white);
+      border-bottom: 1px solid var(--border);
+    }
+    .page-header-inner { max-width: 700px; }
+    .eyebrow { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+    .page-title { font-family: var(--font-serif); font-size: clamp(2.5rem, 4vw, 4rem); font-weight: 300; line-height: 1.1; margin-bottom: 1rem; }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-desc { font-size: 0.88rem; color: var(--muted); max-width: 480px; }
+
+    /* FILTERS */
+    .filter-bar {
+      padding: 1.5rem 6rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--cream);
+      flex-wrap: wrap;
+    }
+    .filter-label { font-size: 0.68rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-right: 0.5rem; }
+    .filter-btn {
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.45rem 1.1rem;
+      border: 1px solid var(--border);
+      background: none;
+      color: var(--mid);
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .filter-btn:hover, .filter-btn.active { border-color: var(--gold); color: var(--gold); background: rgba(201,168,76,0.05); }
+
+    /* SHOP GRID */
+    .shop-section { padding: 4rem 6rem 7rem; }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+    .product-card { cursor: pointer; }
+    .product-card-image {
+      aspect-ratio: 3/4;
+      background: var(--warm-white);
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 1.1rem;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-card-image { transform: scale(1.01); }
+    .product-card-image svg { width: 100%; height: 100%; }
+    .product-card-badge {
+      position: absolute; top: 1rem; right: 1rem;
+      font-size: 0.6rem; letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold); color: #fff; padding: 0.3rem 0.65rem;
+    }
+    .product-card-badge.sold { background: var(--mid); }
+    .product-card-name { font-family: var(--font-serif); font-size: 1.15rem; font-weight: 400; color: var(--dark); margin-bottom: 0.25rem; }
+    .product-card-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; }
+    .product-card-price { font-size: 0.85rem; color: var(--gold); margin-top: 0.4rem; }
+
+    /* BESPOKE BANNER */
+    .bespoke-banner {
+      margin: 0 6rem 7rem;
+      background: var(--dark);
+      padding: 4rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 2rem;
+    }
+    .bespoke-banner .eyebrow { color: var(--gold-light); margin-bottom: 0.5rem; }
+    .bespoke-title { font-family: var(--font-serif); font-size: 2.2rem; font-weight: 300; color: var(--cream); line-height: 1.15; }
+    .bespoke-title em { font-style: italic; }
+    .bespoke-desc { font-size: 0.85rem; color: rgba(250,247,242,0.5); margin-top: 0.75rem; max-width: 500px; }
+    .btn-gold {
+      font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase;
+      background: var(--gold); color: var(--dark); padding: 1rem 2rem;
+      text-decoration: none; white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .btn-gold:hover { background: var(--gold-light); }
+
+    footer {
+      background: var(--dark); border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 4rem 6rem 2.5rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand-name { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: 0.18em; color: var(--cream); margin-bottom: 0.75rem; }
+    .footer-brand-name span { color: var(--gold); }
+    .footer-tagline { font-size: 0.8rem; color: rgba(250,247,242,0.4); line-height: 1.7; max-width: 240px; }
+    .footer-col h4 { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.6rem; }
+    .footer-col a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.72rem; color: rgba(250,247,242,0.3); }
+    .footer-socials { display: flex; gap: 1.25rem; }
+    .footer-socials a { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250,247,242,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-socials a:hover { color: var(--gold); }
+
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .page-header, .filter-bar, .shop-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .shop-grid { grid-template-columns: 1fr 1fr; }
+      .bespoke-banner { margin: 0 1.5rem 5rem; padding: 2.5rem; grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 3rem 2rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">LUMIN<span>A</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html" class="active">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+    <a class="nav-cta" href="#bespoke">Bespoke</a>
+  </nav>
+
+  <div class="page-header">
+    <div class="page-header-inner">
+      <span class="eyebrow">The Collection</span>
+      <h1 class="page-title">Fine Jewellery,<br><em>crafted for you</em></h1>
+      <p class="page-desc">Browse our full collection of handcrafted rings, necklaces, earrings, and bracelets. Each piece tells a story — find yours.</p>
+    </div>
+  </div>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter by</span>
+    <button class="filter-btn active">All Pieces</button>
+    <button class="filter-btn">Rings</button>
+    <button class="filter-btn">Necklaces</button>
+    <button class="filter-btn">Earrings</button>
+    <button class="filter-btn">Bracelets</button>
+    <button class="filter-btn">Under SGD 500</button>
+    <button class="filter-btn">Gold</button>
+    <button class="filter-btn">Silver</button>
+  </div>
+
+  <section class="shop-section">
+    <div class="shop-grid">
+
+      <!-- 1 -->
+      <div class="product-card fade-up">
+        <div class="product-card-image">
+          <div class="product-card-badge">New</div>
+          <img src="images/ring1.jpg" alt="Celestia Solitaire Ring" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Celestia Solitaire Ring</p>
+        <p class="product-card-meta">18k Gold · Oval Diamond</p>
+        <p class="product-card-price">SGD 2,480</p>
+      </div>
+
+      <!-- 2 -->
+      <div class="product-card fade-up" style="transition-delay:0.07s">
+        <div class="product-card-image">
+          <img src="images/necklace1.jpeg" alt="Luna Crescent Necklace" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Luna Crescent Necklace</p>
+        <p class="product-card-meta">Sterling Silver · Star Sapphire</p>
+        <p class="product-card-price">SGD 680</p>
+      </div>
+
+      <!-- 3 -->
+      <div class="product-card fade-up" style="transition-delay:0.14s">
+        <div class="product-card-image">
+          <div class="product-card-badge">Bestseller</div>
+          <img src="images/earrings1.jpeg" alt="Aurora Drop Earrings" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Aurora Drop Earrings</p>
+        <p class="product-card-meta">14k Rose Gold · Citrine Drop</p>
+        <p class="product-card-price">SGD 1,120</p>
+      </div>
+
+      <!-- 4 -->
+      <div class="product-card fade-up" style="transition-delay:0.21s">
+        <div class="product-card-image">
+          <img src="images/bracelet1.jpeg" alt="Pavé Tennis Bracelet" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Pavé Tennis Bracelet</p>
+        <p class="product-card-meta">18k White Gold · Diamond Pavé</p>
+        <p class="product-card-price">SGD 3,850</p>
+      </div>
+
+      <!-- 5 -->
+      <div class="product-card fade-up" style="transition-delay:0.28s">
+        <div class="product-card-image">
+          <div class="product-card-badge">Limited</div>
+          <img src="images/pendant1.jpeg" alt="North Star Pendant" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">North Star Pendant</p>
+        <p class="product-card-meta">22k Gold · Diamond Points</p>
+        <p class="product-card-price">SGD 1,640</p>
+      </div>
+
+      <!-- 6 -->
+      <div class="product-card fade-up" style="transition-delay:0.35s">
+        <div class="product-card-image">
+          <img src="images/ring2.jpeg" alt="Stacking Ring Trio" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Stacking Ring Trio</p>
+        <p class="product-card-meta">Mixed Metals · 3-Ring Set</p>
+        <p class="product-card-price">SGD 920</p>
+      </div>
+
+      <!-- 7 -->
+      <div class="product-card fade-up">
+        <div class="product-card-image">
+          <img src="images/earrings2.jpeg" alt="Orbit Pavé Hoops" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Orbit Pavé Hoops</p>
+        <p class="product-card-meta">18k Gold · Diamond Hoops</p>
+        <p class="product-card-price">SGD 1,980</p>
+      </div>
+
+      <!-- 8 -->
+      <div class="product-card fade-up" style="transition-delay:0.07s">
+        <div class="product-card-image">
+          <div class="product-card-badge">New</div>
+          <img src="images/set.jpeg" alt="Cascade Layered Set" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Cascade Layered Set</p>
+        <p class="product-card-meta">14k Gold · 3-Layer Necklace</p>
+        <p class="product-card-price">SGD 1,280</p>
+      </div>
+
+      <!-- 9 -->
+      <div class="product-card fade-up" style="transition-delay:0.14s">
+        <div class="product-card-image">
+          <div class="product-card-badge sold">Sold Out</div>
+          <img src="images/ring3.jpeg" alt="Eternal Cathedral Ring" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="product-card-name">Eternal Cathedral Ring</p>
+        <p class="product-card-meta">Platinum · Princess Cut Diamond</p>
+        <p class="product-card-price">SGD 5,200</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- BESPOKE BANNER -->
+  <div class="bespoke-banner fade-up" id="bespoke">
+    <div>
+      <span class="eyebrow">Bespoke Service</span>
+      <h2 class="bespoke-title">Can't find the perfect piece?<br><em>Let us create it.</em></h2>
+      <p class="bespoke-desc">Work directly with our artisans to design a one-of-a-kind jewel. From concept sketch to finished piece, we guide you through every step.</p>
+    </div>
+    <a class="btn-gold" href="about.html#contact">Start a Conversation</a>
+  </div>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand-name">LUMIN<span>A</span></p>
+        <p class="footer-tagline">Fine jewellery, handcrafted in Singapore. Designed to be worn, cherished, and passed on through generations.</p>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Collections</h4><ul>
+        <li><a href="shop.html">Rings</a></li>
+        <li><a href="shop.html">Necklaces</a></li>
+        <li><a href="shop.html">Earrings</a></li>
+        <li><a href="shop.html">Bracelets</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:hello@lumina.sg">hello@lumina.sg</a></li>
+        <li><a href="#">+65 6123 4567</a></li>
+        <li><a href="#">Orchard Road, Singapore</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Lumina Fine Jewellery. All rights reserved.</p>
+      <div class="footer-socials"><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Facebook</a></div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
