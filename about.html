@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Lumina Fine Jewellery</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --cream: #FAF7F2;
+      --warm-white: #F5F0E8;
+      --gold: #C9A84C;
+      --gold-light: #E2C97E;
+      --dark: #1A1710;
+      --mid: #3D3A30;
+      --muted: #8A8370;
+      --border: #DDD5C4;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Jost', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--cream); color: var(--dark); font-family: var(--font-sans); font-weight: 300; line-height: 1.7; overflow-x: hidden; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(250,247,242,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 300; letter-spacing: 0.18em; color: var(--dark); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--mid); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+    .nav-cta { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold); padding: 0.5rem 1.25rem; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: #fff; }
+
+    /* HERO */
+    .about-hero {
+      min-height: 70vh;
+      background: var(--dark);
+      display: flex;
+      align-items: flex-end;
+      padding: 0 6rem 6rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .about-hero-bg {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .eyebrow { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2.8rem, 5vw, 5rem);
+      font-weight: 300;
+      color: var(--cream);
+      line-height: 1.08;
+      margin-bottom: 1.5rem;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-light); }
+    .hero-subtitle { font-size: 0.9rem; color: rgba(250,247,242,0.5); max-width: 500px; line-height: 1.85; }
+
+    /* STORY */
+    .story-section { padding: 7rem 6rem; }
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+    .story-visual {
+      background: var(--warm-white);
+      aspect-ratio: 4/5;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .story-text .section-tag { font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
+    .story-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--dark);
+      margin-bottom: 1.5rem;
+    }
+    .story-heading em { font-style: italic; }
+    .story-text p { font-size: 0.88rem; color: var(--muted); line-height: 1.95; margin-bottom: 1.25rem; }
+
+    /* STATS */
+    .stats-bar {
+      background: var(--warm-white);
+      padding: 4rem 6rem;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .stat-item { padding: 1.5rem 2rem; }
+    .stat-item + .stat-item { border-left: 1px solid var(--border); }
+    .stat-number { font-family: var(--font-serif); font-size: 3rem; font-weight: 300; color: var(--gold); line-height: 1; margin-bottom: 0.4rem; }
+    .stat-label { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+    /* PROCESS */
+    .process-section { padding: 7rem 6rem; }
+    .process-heading {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 3.5rem;
+      max-width: 500px;
+    }
+    .process-heading em { font-style: italic; }
+    .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+    .process-step { padding: 2rem; border: 1px solid var(--border); }
+    .step-number {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 300;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+    .step-icon { margin-bottom: 1rem; }
+    .step-title { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--dark); font-weight: 500; margin-bottom: 0.6rem; }
+    .step-desc { font-size: 0.8rem; color: var(--muted); line-height: 1.8; }
+
+    /* TEAM */
+    .team-section { background: var(--warm-white); padding: 7rem 6rem; }
+    .team-section .section-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+    .team-heading { font-family: var(--font-serif); font-size: clamp(2rem, 3vw, 2.8rem); font-weight: 300; line-height: 1.15; }
+    .team-heading em { font-style: italic; }
+    .team-intro-text { font-size: 0.87rem; color: var(--muted); line-height: 1.9; }
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .team-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+}
+    .team-avatar {
+      aspect-ratio: 4/5;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden;
+    }
+    .team-name { font-family: var(--font-serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.2rem; }
+    .team-role { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
+    .team-bio { font-size: 0.78rem; color: var(--muted); line-height: 1.8; }
+
+    /* VALUES */
+    .values-section { padding: 7rem 6rem; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 3rem; }
+    .value-card {
+      padding: 2.5rem 2rem;
+      border-top: 2px solid var(--gold);
+    }
+    .value-icon { font-size: 1.5rem; margin-bottom: 1rem; color: var(--gold); opacity: 0.7; }
+    .value-title { font-size: 0.8rem; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 500; color: var(--dark); margin-bottom: 0.75rem; }
+    .value-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.85; }
+
+    /* CONTACT */
+    .contact-section { background: var(--dark); padding: 7rem 6rem; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .contact-title { font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3.2rem); font-weight: 300; color: var(--cream); margin-bottom: 1rem; line-height: 1.1; }
+    .contact-title em { font-style: italic; color: var(--gold-light); }
+    .contact-desc { font-size: 0.85rem; color: rgba(250,247,242,0.5); line-height: 1.9; margin-bottom: 2rem; }
+    .contact-details { list-style: none; }
+    .contact-details li {
+      padding: 1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      display: flex; gap: 1rem;
+    }
+    .contact-details li:first-child { border-top: 1px solid rgba(255,255,255,0.07); }
+    .contact-label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); min-width: 80px; padding-top: 2px; }
+    .contact-value { font-size: 0.85rem; color: rgba(250,247,242,0.6); }
+    .contact-value a { color: rgba(250,247,242,0.6); text-decoration: none; }
+    .contact-value a:hover { color: var(--gold-light); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .contact-form input, .contact-form textarea, .contact-form select {
+      padding: 0.9rem 1.25rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.2);
+      color: var(--cream);
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 300;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(250,247,242,0.3); }
+    .contact-form input:focus, .contact-form textarea:focus, .contact-form select:focus { border-color: var(--gold); }
+    .contact-form select option { background: var(--dark); }
+    .contact-form textarea { min-height: 120px; resize: vertical; }
+    .btn-submit {
+      padding: 1rem;
+      background: var(--gold);
+      border: none;
+      color: var(--dark);
+      font-family: var(--font-sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-submit:hover { background: var(--gold-light); }
+
+    footer {
+      background: var(--dark); border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 4rem 6rem 2.5rem;
+    }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand-name { font-family: var(--font-serif); font-size: 1.5rem; font-weight: 300; letter-spacing: 0.18em; color: var(--cream); margin-bottom: 0.75rem; }
+    .footer-brand-name span { color: var(--gold); }
+    .footer-tagline { font-size: 0.8rem; color: rgba(250,247,242,0.4); line-height: 1.7; max-width: 240px; }
+    .footer-col h4 { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 0.6rem; }
+    .footer-col a { font-size: 0.8rem; color: rgba(250,247,242,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--cream); }
+    .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 0.72rem; color: rgba(250,247,242,0.3); }
+    .footer-socials { display: flex; gap: 1.25rem; }
+    .footer-socials a { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(250,247,242,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-socials a:hover { color: var(--gold); }
+
+    .fade-up { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      nav { padding: 1rem 2rem; }
+      .about-hero { padding: 8rem 2rem 4rem; }
+      .story-section, .process-section, .team-section, .values-section, .contact-section { padding: 5rem 2rem; }
+      .stats-bar { padding: 3rem 2rem; grid-template-columns: 1fr 1fr; }
+      .stat-item + .stat-item { border-left: none; }
+      .stat-item:nth-child(odd) { border-right: 1px solid var(--border); }
+      .story-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+      .team-grid, .values-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      footer { padding: 3rem 2rem 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="index.html">LUMIN<span>A</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+    </ul>
+    <a class="nav-cta" href="#contact">Get in Touch</a>
+  </nav>
+
+  <!-- ABOUT HERO -->
+  <div class="about-hero">
+    <div class="about-hero-bg">
+      <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%; position:absolute; inset:0; opacity:0.12">
+        <circle cx="400" cy="300" r="250" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+        <circle cx="400" cy="300" r="200" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+        <circle cx="400" cy="300" r="150" stroke="#C9A84C" stroke-width="0.5" fill="none"/>
+        <line x1="150" y1="300" x2="650" y2="300" stroke="#C9A84C" stroke-width="0.5"/>
+        <line x1="400" y1="50" x2="400" y2="550" stroke="#C9A84C" stroke-width="0.5"/>
+        <line x1="223" y1="123" x2="577" y2="477" stroke="#C9A84C" stroke-width="0.3"/>
+        <line x1="577" y1="123" x2="223" y2="477" stroke="#C9A84C" stroke-width="0.3"/>
+      </svg>
+    </div>
+    <div class="about-hero-content">
+      <span class="eyebrow">Our Story</span>
+      <h1 class="hero-title">Born from a<br>love of <em>light</em><br>and craft.</h1>
+      <p class="hero-subtitle">Lumina was founded in Singapore in 2018 by jeweller Isabelle Tan, driven by a belief that truly beautiful jewellery should be both exquisitely made and ethically responsible.</p>
+    </div>
+  </div>
+
+  <!-- STORY SECTION -->
+  <section class="story-section">
+    <div class="story-grid">
+      <div class="story-visual fade-up">
+        <img src="images/isabelle.jpg" alt="Isabelle Tan" 
+            style="width:100%; height:100%; object-fit:cover;" />
+      </div>
+      <div class="story-text fade-up" style="transition-delay:0.15s">
+        <span class="section-tag">How it began</span>
+        <h2 class="story-heading">A goldsmith's<br>daughter, a<br><em>lifelong dream</em></h2>
+        <p>Isabelle Tan grew up watching her father work in his Chinatown jewellery workshop. At age eight, she sat beside him polishing rings. At eighteen, she left Singapore to study goldsmithing at Antwerp's Royal Academy of Fine Arts. She returned fifteen years later with a vision: to create jewellery that honours both tradition and conscience.</p>
+        <p>Lumina launched with five pieces and a small studio. Today, we have a team of eight artisans, a boutique on Orchard Road, and customers who have trusted us with their most precious moments — engagements, anniversaries, and everything in between.</p>
+        <p>Every decision we make — from the source of our gold to our packaging — is guided by that same original intention: to make something truly worth keeping.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat-item fade-up">
+      <p class="stat-number">8</p>
+      <p class="stat-label">Master Artisans</p>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.1s">
+      <p class="stat-number">2,400+</p>
+      <p class="stat-label">Pieces Crafted</p>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.2s">
+      <p class="stat-number">7</p>
+      <p class="stat-label">Years in Singapore</p>
+    </div>
+    <div class="stat-item fade-up" style="transition-delay:0.3s">
+      <p class="stat-number">100%</p>
+      <p class="stat-label">Ethically Sourced</p>
+    </div>
+  </div>
+
+  <!-- PROCESS -->
+  <section class="process-section">
+    <div class="fade-up">
+      <span class="eyebrow">How we work</span>
+      <h2 class="process-heading">From first sketch<br>to <em>finished heirloom</em></h2>
+    </div>
+    <div class="process-steps">
+      <div class="process-step fade-up">
+        <p class="step-number">01</p>
+        <p class="step-title">Design</p>
+        <p class="step-desc">Every piece begins as a hand-drawn sketch. Our designers work from concept to refined drawings before any metal is touched.</p>
+      </div>
+      <div class="process-step fade-up" style="transition-delay:0.1s">
+        <p class="step-number">02</p>
+        <p class="step-title">Sourcing</p>
+        <p class="step-desc">We select only conflict-free diamonds and certified coloured stones from suppliers who meet our strict ethical and environmental standards.</p>
+      </div>
+      <div class="process-step fade-up" style="transition-delay:0.2s">
+        <p class="step-number">03</p>
+        <p class="step-title">Crafting</p>
+        <p class="step-desc">Our Singapore artisans hand-fabricate each piece using recycled precious metals. Settings are measured to 0.1mm for perfect stone security.</p>
+      </div>
+      <div class="process-step fade-up" style="transition-delay:0.3s">
+        <p class="step-number">04</p>
+        <p class="step-title">Finishing</p>
+        <p class="step-desc">Final polish, quality inspection, and hallmarking. Each piece is presented in our signature sustainable packaging, ready to be gifted or cherished.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="team-section">
+    <div class="section-intro">
+      <div class="fade-up">
+        <span class="eyebrow">Our People</span>
+        <h2 class="team-heading">The hands<br>behind <em>every piece</em></h2>
+      </div>
+      <p class="team-intro-text fade-up" style="transition-delay:0.1s">Our team of eight artisans brings together expertise from across Singapore, Malaysia, India, and Europe. Each person has dedicated years to mastering a specific craft — from stone setting to engraving to chain-making.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card fade-up">
+        <div class="team-avatar">
+          <img src="images/isabelle.jpg" alt="Isabelle Tan" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="team-name">Isabelle Tan</p>
+        <p class="team-role">Founder & Head Designer</p>
+        <p class="team-bio">Goldsmithing graduate of Antwerp Royal Academy. 20 years of experience designing fine jewellery across Singapore and Europe.</p>
+      </div>
+      <div class="team-card fade-up" style="transition-delay:0.1s">
+        <div class="team-avatar">
+          <img src="images/rajan.jpg" alt="Rajan Pillai" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="team-name">Rajan Pillai</p>
+        <p class="team-role">Master Stone Setter</p>
+        <p class="team-bio">15 years specialising in pavé, bezel, and prong settings. Trained in Jaipur and Chennai before joining Lumina at its founding.</p>
+      </div>
+      <div class="team-card fade-up" style="transition-delay:0.2s">
+        <div class="team-avatar">
+          <img src="images/min.jpg" alt="Min Wei Chen" 
+            style="width:100%; height:100%; object-fit:cover;" />
+        </div>
+        <p class="team-name">Min Wei Chen</p>
+        <p class="team-role">Goldsmith & Engraver</p>
+        <p class="team-bio">Specialises in hand engraving and surface finishing. Her intricate floral motifs have become a signature of Lumina's bespoke work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="fade-up">
+      <span class="eyebrow">What we stand for</span>
+      <h2 class="story-heading" style="max-width:500px">Our values,<br>built into <em>every piece</em></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card fade-up">
+        <div class="value-icon">◆</div>
+        <p class="value-title">Ethical Sourcing</p>
+        <p class="value-desc">We only work with suppliers who comply with the Kimberley Process for diamonds and adhere to fair-trade principles for coloured stones. No exceptions.</p>
+      </div>
+      <div class="value-card fade-up" style="transition-delay:0.1s">
+        <div class="value-icon">◇</div>
+        <p class="value-title">Sustainable Metals</p>
+        <p class="value-desc">All our gold and silver is 100% recycled, certified by the Responsible Jewellery Council. We offset the remaining carbon footprint of every shipment.</p>
+      </div>
+      <div class="value-card fade-up" style="transition-delay:0.2s">
+        <div class="value-icon">✦</div>
+        <p class="value-title">Genuine Craftsmanship</p>
+        <p class="value-desc">We never outsource to factories. Every piece is made in our Singapore studio by a named artisan who takes personal pride in what they create.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <div class="contact-grid">
+      <div class="fade-up">
+        <span class="eyebrow" style="color:var(--gold-light)">Get in touch</span>
+        <h2 class="contact-title">Let's create<br>something <em>beautiful</em><br>together.</h2>
+        <p class="contact-desc">Whether you'd like to commission a bespoke piece, visit our studio, or simply ask a question — we'd love to hear from you.</p>
+        <ul class="contact-details">
+          <li><span class="contact-label">Email</span><span class="contact-value"><a href="mailto:hello@lumina.sg">hello@lumina.sg</a></span></li>
+          <li><span class="contact-label">Phone</span><span class="contact-value">+65 6123 4567</span></li>
+          <li><span class="contact-label">Studio</span><span class="contact-value">12 Orchard Boulevard, #02-08<br>Singapore 248654</span></li>
+          <li><span class="contact-label">Hours</span><span class="contact-value">Mon–Sat, 10am–7pm<br>Appointments preferred</span></li>
+        </ul>
+      </div>
+      <div class="fade-up" style="transition-delay:0.15s">
+        <div class="contact-form">
+          <input type="text" placeholder="Your name" />
+          <input type="email" placeholder="Email address" />
+          <select>
+            <option value="" disabled selected>What can we help you with?</option>
+            <option>Shop enquiry</option>
+            <option>Bespoke commission</option>
+            <option>Repair or resize</option>
+            <option>Press or collaboration</option>
+            <option>Other</option>
+          </select>
+          <textarea placeholder="Your message…"></textarea>
+          <button class="btn-submit" type="button">Send Message</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-grid">
+      <div>
+        <p class="footer-brand-name">LUMIN<span>A</span></p>
+        <p class="footer-tagline">Fine jewellery, handcrafted in Singapore. Designed to be worn, cherished, and passed on through generations.</p>
+      </div>
+      <div class="footer-col"><h4>Explore</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Shop</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Collections</h4><ul>
+        <li><a href="shop.html">Rings</a></li>
+        <li><a href="shop.html">Necklaces</a></li>
+        <li><a href="shop.html">Earrings</a></li>
+        <li><a href="shop.html">Bracelets</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:hello@lumina.sg">hello@lumina.sg</a></li>
+        <li><a href="#">+65 6123 4567</a></li>
+        <li><a href="#">Orchard Road, Singapore</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Lumina Fine Jewellery. All rights reserved.</p>
+      <div class="footer-socials"><a href="#">Instagram</a><a href="#">Pinterest</a><a href="#">Facebook</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
